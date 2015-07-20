@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 import os
+import sys
+
 COV = None
 if os.environ.get('FLASK_COVERAGE'):
     import coverage
-    COV = coverage.coverage(branch=True, include='junzhou365/*')
+    COV = coverage.coverage(branch=True, source=['/vagrant/Projects/junzhou365/catalog/', '/vagrant/Projects/junzhou365/home/'])
     COV.start()
 
 from factory import create_app
@@ -15,12 +17,12 @@ manager = Manager(app)
 @manager.command
 def init_db():
     """Initialize database"""
-    from junzhou365 import db, app
+    from factory import db, app
     app = create_app('default')
     app_context = app.app_context()
     app_context.push()
     db.create_all()
-    from init_db import database_init
+    from catalog.init_db import database_init
     x = database_init.fill_examples
     x()
     app_context.pop()
@@ -28,7 +30,7 @@ def init_db():
 @manager.command
 def drop_db():
     """Initialize database"""
-    from junzhou365 import db, app
+    from factory import db, app
     app = create_app('default')
     app_context = app.app_context()
     app_context.push()
@@ -42,7 +44,6 @@ def test(coverage=False):
         import sys
         os.environ['FLASK_COVERAGE'] = '1'
         os.execvp(sys.executable, [sys.executable] + sys.argv)
-
     import unittest
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)

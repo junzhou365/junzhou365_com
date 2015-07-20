@@ -1,6 +1,6 @@
 import unittest
 from flask import current_app
-from junzhou365 import create_app, db
+from factory import create_app, db
 
 class BasicsTestCase(unittest.TestCase):
     def setUp(self):

@@ -4,11 +4,10 @@ from config import config
 
 import sys
 from os import path
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+sys.path.insert(0, path.dirname(path.dirname(path.abspath(__file__))))
+sys.path.insert(0, path.dirname(path.abspath(__file__)))
 
 app = Flask(__name__, static_folder='home/static')
-
-
 db = SQLAlchemy()
 
 def create_app(config_name):

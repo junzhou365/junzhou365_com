@@ -11,11 +11,11 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:///catalog'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://julian:julian@localhost/catalog'
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:///catalog_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://julian:julian@localhost/catalog_test'
 
 config = {
     'development': DevelopmentConfig,
