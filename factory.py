@@ -4,10 +4,11 @@ from config import config
 
 import sys
 from os import path
+import logging
 sys.path.insert(0, path.dirname(path.dirname(path.abspath(__file__))))
 sys.path.insert(0, path.dirname(path.abspath(__file__)))
 
-app = Flask(__name__, static_folder='home/static')
+app = Flask(__name__, static_folder='static')
 db = SQLAlchemy()
 
 def create_app(config_name):
@@ -17,10 +18,15 @@ def create_app(config_name):
 
     db.init_app(app)
 
-    from home import home as home_blueprint
-    app.register_blueprint(home_blueprint)
+    from redirectToResume import home
+    app.register_blueprint(home)
+
+    from resume import resume
+    app.register_blueprint(resume, url_prefix='/resume')
+
     from catalog import catalog
     app.register_blueprint(catalog, url_prefix='/catalog')
 
+    from mystock import stock
+    app.register_blueprint(stock, url_prefix='/stock')
     return app
-
