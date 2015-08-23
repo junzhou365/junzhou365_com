@@ -7,6 +7,7 @@ from os import path
 import logging
 sys.path.insert(0, path.dirname(path.dirname(path.abspath(__file__))))
 sys.path.insert(0, path.dirname(path.abspath(__file__)))
+sys.path.append('/vagrant/Projects/tushare') # tushare path
 
 app = Flask(__name__, static_folder='static')
 db = SQLAlchemy()
