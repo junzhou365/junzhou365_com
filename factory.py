@@ -1,5 +1,6 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.cache import Cache
 from config import config
 
 import sys
@@ -11,6 +12,7 @@ sys.path.append('/vagrant/Projects/tushare') # tushare path
 
 app = Flask(__name__, static_folder='static')
 db = SQLAlchemy()
+cache = Cache(app, config={'CACHE_TYPE': 'memcached'})
 
 def create_app(config_name):
     app = Flask(__name__)
